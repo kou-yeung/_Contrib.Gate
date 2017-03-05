@@ -20,12 +20,17 @@ public class Application : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
+
+        // スタンドアロン版ではスタンドアロンサーバーを追加します
+        if (connectionType == ConnectionType.Standalone)
+        {
+            gameObject.AddComponent<StandaloneServer>();
+        }
     }
 
     void Start()
     {
         // 初期化
-        GameState.CreateInstance();
 
         // サービスロケータセットアップ
         LoggerService.SetLocator(new UnityLogger());
@@ -70,10 +75,6 @@ public class Application : MonoBehaviour
     void Update()
     {
         // メインループ
-        if (GameState.Instance != null)
-        {
-            GameState.Instance.Update();
-        }
         SocketService.Locator.Poll();
     }
 
@@ -92,40 +93,3 @@ public class Application : MonoBehaviour
     }
 }
 
-class UnityLogger : ILoggerService
-{
-    public override void Log(Level level, string message)
-    {
-        switch (level)
-        {
-            case Level.Error:
-                Debug.LogError(message);
-                break;
-            case Level.Warning:
-                Debug.LogWarning(message);
-                break;
-            case Level.Info:
-            case Level.Config:
-            case Level.Fine:
-                Debug.Log(message);
-                break;
-        }
-    }
-    public override void Log(Level level, string format, params object[] args)
-    {
-        switch (level)
-        {
-            case Level.Error:
-                Debug.LogErrorFormat(format, args);
-                break;
-            case Level.Warning:
-                Debug.LogWarningFormat(format, args);
-                break;
-            case Level.Info:
-            case Level.Config:
-            case Level.Fine:
-                Debug.LogFormat(format, args);
-                break;
-        }
-    }
-}

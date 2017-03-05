@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using Network;
+using Logger;
 
 namespace Server
 {
@@ -24,7 +25,7 @@ namespace Server
                     // 認証待ち一覧に追加
                     var session = new TcpClientSession(client);
                     GameState.Instance.AddSession(session);
-                    Console.WriteLine("AcceptTcpClient : {0}", client.Client.RemoteEndPoint);
+                    LoggerService.Locator.Info("AcceptTcpClient : {0}", client.Client.RemoteEndPoint);
                 }
 
                 GameState.Instance.Update();
@@ -56,8 +57,10 @@ namespace Server
 
             // 初期化
             GameState.CreateInstance();
-            
+
             // サービスロケータ設定
+            LoggerService.SetLocator(new ConsoleLogger());
+
 
             // 接続開始
             var port = 2007; // Listenするポート番号
