@@ -41,12 +41,15 @@ namespace Network
                 using (var ms = new MemoryStream(data))
                 {
                     var packet = new PacketHelper(ms);
-                    byte[] bytes;
-                    if (packet.Receive(out bytes))
+                    while (ms.Position < ms.Length)
                     {
-                        if (commandExec != null)
+                        byte[] bytes;
+                        if (packet.Receive(out bytes))
                         {
-                            commandExec(this, bytes);
+                            if (commandExec != null)
+                            {
+                                commandExec(this, bytes);
+                            }
                         }
                     }
                 }

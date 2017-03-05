@@ -30,12 +30,15 @@ namespace Network
                 using (var ms = new MemoryStream(receive))
                 {
                     var packet = new PacketHelper(ms);
-                    byte[] bytes;
-                    if (packet.Receive(out bytes))
+                    while (ms.Position < ms.Length)
                     {
-                        if (ReceviedEvent != null)
+                        byte[] bytes;
+                        if (packet.Receive(out bytes))
                         {
-                            ReceviedEvent(bytes);
+                            if (ReceviedEvent != null)
+                            {
+                                ReceviedEvent(bytes);
+                            }
                         }
                     }
                 }
