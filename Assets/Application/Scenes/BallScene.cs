@@ -27,12 +27,16 @@ public class BallScene : MonoBehaviour {
         switch (c.command)
         {
             case Command.MissionState:
-                var state = c.Unpack<MissionState>();
-                foreach (var m in GameEnities.Instance.missions)
+                var states = c.Unpack<MissionState[]>();
+                text.text = "";
+                foreach (var state in states)
                 {
-                    if (state.MissionId == m.ID)
+                    foreach (var m in GameEnities.Instance.missions)
                     {
-                        text.text = m.Title;
+                        if (state.MissionId == m.ID)
+                        {
+                            text.text = string.Format("{0} : ({1}/{2})", m.Title, state.Conditions[0], m.Conditions[0].Value);
+                        }
                     }
                 }
                 break;

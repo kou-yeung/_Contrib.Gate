@@ -30,11 +30,6 @@ namespace Network
                 readBytes = stream.Read(buffer, 0, 4);         // データ長を取得
                 available = BitConverter.ToInt32(buffer, 0);   // データの長さ取得
             }
-            //    //readBytes -= 4;                                // サイズを減らす
-            //    data.AddRange(buffer.Skip(4).Take(readBytes)); // 残りデータは buffer に追加
-            //}
-            //else
-            //{
             // 複数の通信が一緒に来ると想定し、残りデータ量以上読みだせないよう最大値制限
             readBytes = stream.Read(buffer, 0, Math.Min(BufferSize, available.Value));
             data.AddRange(buffer.Take(readBytes));

@@ -49,13 +49,6 @@ public class Application : MonoBehaviour
             communication.Pack("PW");
             SocketService.Locator.Send(communication.GetBytes());
         }
-
-        // メッセージ
-        {
-            var communication = new Communication(Command.Admin);
-            communication.Pack("Hello");
-            SocketService.Locator.Send(communication.GetBytes());
-        }
     }
     void InitSocketService()
     {
@@ -91,9 +84,14 @@ public class Application : MonoBehaviour
                 {
                     var message = c.Unpack<string>();
                     LoggerService.Locator.Info("Receive : {0}", message);
+                }
+                break;
+            case Command.Auth:
+                {
                     SceneManager.LoadScene("Ball");
                 }
                 break;
+
         }
     }
 }

@@ -60,32 +60,23 @@ class GameState
                 authSessions.Remove(session);           // 認証待ちリストから削除
                 session.Userdata(new UserData()); // とりあえず新規ユーザデータを追加
                 session.SetCommandExec(ReceivedEvent);  //通常イベント処理
+                session.Send(Communication.Create(Command.Auth).GetBytes());
                 break;
         }
     }
     void SendMissionStates(ISession session)
     {
-        foreach (var s in session.Userdata().MissionStates)
+        List<MissionState> res = new List<MissionState>();
+        foreach (var state in session.Userdata().MissionStates)
         {
-            foreach (var m in GameEnities.Instance.missions)
+            if (state.IsOrder())
             {
-                if (s.MissionId == m.ID && s.IsOrder())
-                {
-                    LoggerService.Locator.Info("MissionState : {0}", m.Title);
-                }
+                res.Add(state);
             }
         }
-        //List<MissionState> res = new List<MissionState>();
-        //foreach (var state in session.Userdata().MissionStates)
-        //{
-        //    if (state.IsOrder())
-        //    {
-        //        res.Add(state);
-        //    }
-        //}
-        //var c = Communication.Create(Command.MissionState);
-        //c.Pack(res[0]);
-        //session.Send(c.GetBytes());
+        var c = Communication.Create(Command.MissionState);
+        c.Pack(res.ToArray());
+        session.Send(c.GetBytes());
     }
     // イベント:必ず認証完了
     void ReceivedEvent(ISession session, byte[] bytes)
