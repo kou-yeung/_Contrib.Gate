@@ -3,13 +3,12 @@
 // 各ユーザのミッションクリア状態を管理するクラスです
 using System.Collections.Generic;
 using System.Linq;
-using Workaround;
 
 namespace Entity
 {
     public class MissionState
     {
-        public class State : ENUM
+        public class State : Workaround.ENUM
         {
             static public readonly State Order = new State { value = 0 };  // 受注中
             static public readonly State Clear = new State { value = 1 };  // クリア
