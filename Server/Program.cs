@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Sockets;
 using Network;
 using Logger;
+using IO;
+using Entity;
 
 namespace Server
 {
@@ -54,14 +56,13 @@ namespace Server
 
         static void Main(string[] args)
         {
+            // サービスロケータ設定
+            LoggerService.SetLocator(new ConsoleLogger());
+            FileLoaderServer.SetLocator(new FileLoader(@"D:\GitHub\Contrib.Gate\Resources\Data\csv"));
 
             // 初期化
             GameState.CreateInstance();
-
-            // サービスロケータ設定
-            LoggerService.SetLocator(new ConsoleLogger());
-
-
+            GameEnities.CreateInstance().Load();
             // 接続開始
             var port = 2007; // Listenするポート番号
             TcpListener listener = new TcpListener(IPAddress.Any, port);

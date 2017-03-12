@@ -11,7 +11,7 @@ namespace Network
         PacketHelper packet;
         Action<ISession, byte[]> commandExec;
 
-        public UserData userdata { get; set; }
+        UserData userdata;
 
         public TcpClientSession(TcpClient client)
         {
@@ -56,6 +56,16 @@ namespace Network
         public void SetCommandExec(Action<ISession, byte[]> commandExec)
         {
             this.commandExec = commandExec;
+        }
+
+        public void Userdata(UserData userdata)
+        {
+            this.userdata = userdata;
+        }
+
+        public UserData Userdata()
+        {
+            return this.userdata;
         }
     }
 }

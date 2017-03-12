@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Network;
+using Entity;
+using Logic;
+using Logger;
 
 class GameState
 {
@@ -43,19 +46,6 @@ class GameState
         authSessions.Add(session);
     }
 
-    // イベント:必ず認証完了
-    void ReceivedEvent(ISession session, byte[] bytes)
-    {
-        var c = Communication.Create(bytes);
-        switch (c.command)
-        {
-            case Command.Admin:
-                var message = c.Unpack<string>();
-                session.Send(Communication.Create(Command.Admin).Pack(message).GetBytes());
-                break;
-        }
-    }
-
     // 認証情報受け取り
     void ReceivedAuth(ISession session, byte[] bytes)
     {
@@ -68,8 +58,55 @@ class GameState
                 // TODO : 実際の認証を行う
                 sessions[id] = session;
                 authSessions.Remove(session);           // 認証待ちリストから削除
+                session.Userdata(new UserData()); // とりあえず新規ユーザデータを追加
                 session.SetCommandExec(ReceivedEvent);  //通常イベント処理
                 break;
         }
     }
+    void SendMissionStates(ISession session)
+    {
+        foreach (var s in session.Userdata().MissionStates)
+        {
+            foreach (var m in GameEnities.Instance.missions)
+            {
+                if (s.MissionId == m.ID && s.IsOrder())
+                {
+                    LoggerService.Locator.Info("MissionState : {0}", m.Title);
+                }
+            }
+        }
+        //List<MissionState> res = new List<MissionState>();
+        //foreach (var state in session.Userdata().MissionStates)
+        //{
+        //    if (state.IsOrder())
+        //    {
+        //        res.Add(state);
+        //    }
+        //}
+        //var c = Communication.Create(Command.MissionState);
+        //c.Pack(res[0]);
+        //session.Send(c.GetBytes());
+    }
+    // イベント:必ず認証完了
+    void ReceivedEvent(ISession session, byte[] bytes)
+    {
+        var c = Communication.Create(bytes);
+        switch (c.command)
+        {
+            case Command.Admin:
+                var message = c.Unpack<string>();
+                session.Send(Communication.Create(Command.Admin).Pack(message).GetBytes());
+                break;
+            case Command.GetBall:
+                var ball = c.Unpack<IdWithType>();
+                MissionLogic.CheckBallGet(GameEnities.Instance.missions, session.Userdata().MissionStates, ball);
+                LoggerService.Locator.Info("Rece : Command.GetBall {0}", IdWithType.GetId(ball));
+                SendMissionStates(session);
+                break;
+            case Command.MissionState:
+                SendMissionStates(session);
+                break;
+        }
+    }
+
 }

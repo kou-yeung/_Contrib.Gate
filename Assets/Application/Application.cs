@@ -5,7 +5,10 @@ using System.IO;
 using System.Text;
 using Logger;
 using Network;
+using IO;
+using Entity;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Application : MonoBehaviour
 {
@@ -30,13 +33,14 @@ public class Application : MonoBehaviour
 
     void Start()
     {
-        // 初期化
-
         // サービスロケータセットアップ
         LoggerService.SetLocator(new UnityLogger());
         InitSocketService();
-
         SocketService.Locator.AddReceivedEvent(Receive);
+        FileLoaderServer.SetLocator(new UnityResourceLoader());
+
+        // 初期化
+        GameEnities.CreateInstance().Load();
 
         // ログイン
         {
@@ -87,8 +91,9 @@ public class Application : MonoBehaviour
                 {
                     var message = c.Unpack<string>();
                     LoggerService.Locator.Info("Receive : {0}", message);
-                    break;
+                    SceneManager.LoadScene("Ball");
                 }
+                break;
         }
     }
 }

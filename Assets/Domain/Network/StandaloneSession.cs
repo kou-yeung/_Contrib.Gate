@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using Entity;
 
 namespace Network
 {
     class StandaloneSession : ISession
     {
+        UserData userdata;
         Action<ISession, byte[]> commandExec;
 
         List<byte[]> c2s = new List<byte[]>();
@@ -70,6 +72,20 @@ namespace Network
         public void C2S(byte[] bytes)
         {
             c2s.Add(bytes);
+        }
+
+        public void SetUserdata(UserData userdata)
+        {
+            this.userdata = userdata;
+        }
+
+        public void Userdata(UserData userdata)
+        {
+            this.userdata = userdata;
+        }
+        public UserData Userdata()
+        {
+            return this.userdata;
         }
     }
 }

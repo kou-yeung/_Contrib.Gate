@@ -49,11 +49,29 @@
     <Compile Include="..\Assets\Application\GameState.cs">
       <Link>Application\GameState.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\Domain\Entity\GameEntities.cs">
+      <Link>Domain\Entity\GameEntities.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Domain\Entity\IdWithType.cs">
+      <Link>Domain\Entity\IdWithType.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Domain\Entity\Mission.cs">
+      <Link>Domain\Entity\Mission.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Domain\Entity\MissionState.cs">
+      <Link>Domain\Entity\MissionState.cs</Link>
+    </Compile>
     <Compile Include="..\Assets\Domain\Entity\UserData.cs">
       <Link>Domain\Entity\UserData.cs</Link>
     </Compile>
+    <Compile Include="..\Assets\Domain\IO\FileLoaderServer.cs">
+      <Link>Domain\IO\FileLoaderServer.cs</Link>
+    </Compile>
     <Compile Include="..\Assets\Domain\Logger\LoggerService.cs">
       <Link>Domain\Logger\LoggerService.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Domain\Logic\Mission.cs">
+      <Link>Domain\Logic\Mission.cs</Link>
     </Compile>
     <Compile Include="..\Assets\Domain\Network\Command.cs">
       <Link>Domain\Network\Command.cs</Link>
@@ -73,15 +91,49 @@
     <Compile Include="..\Assets\Domain\ServiceLocator\ServiceLocator.cs">
       <Link>Domain\ServiceLocator\ServiceLocator.cs</Link>
     </Compile>
+    <Compile Include="Domain\IO\FileLoader.cs" />
     <Compile Include="Domain\Logger\ConsoleLogger.cs" />
+    <Compile Include="Infrastructure\CsvHelper\ClassMap\AutoClassMap.cs" />
+    <Compile Include="Infrastructure\CsvHelper\ClassMap\ClassMapFactory.cs" />
+    <Compile Include="Infrastructure\CsvHelper\ClassMap\IClassMap.cs" />
+    <Compile Include="Infrastructure\CsvHelper\Configuration\CsvConfiguration.cs" />
+    <Compile Include="Infrastructure\CsvHelper\CsvParser.cs" />
+    <Compile Include="Infrastructure\CsvHelper\CsvReader.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\BooleanTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\ByteTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\CharTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\DateTimeOffsetTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\DateTimeTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\DecimalTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\DefauleTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\DoubleTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\EnumTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\GuidTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\Int16TypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\Int32TypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\Int64TypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\IPAddressTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\ITypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\SByteTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\SingleTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\StringTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\TimeSpanTypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\TypeConverterFactory.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\UInt16TypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\UInt32TypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\UInt64TypeConverter.cs" />
+    <Compile Include="Infrastructure\CsvHelper\TypeConverter\VersionTypeConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Infrastructure\MsgPack\" />
+    <Content Include="Infrastructure\MsgPack\net35-client\MsgPack.dll" />
+    <Content Include="Infrastructure\MsgPack\net35-client\MsgPack.pdb" />
+    <Content Include="Infrastructure\MsgPack\net35-client\MsgPack.XML" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
