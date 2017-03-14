@@ -5,7 +5,6 @@
 // 下位 24 bit は ID  : 0x00FFFFFF
 using System;
 using System.Text.RegularExpressions;
-using MsgPack;
 using CsvHelper;
 
 namespace Entity
@@ -20,12 +19,6 @@ namespace Entity
     {
         public uint Value { get; set; }
 
-        public IdWithType(IdType type, uint id)
-        {
-            Value = 0;
-            Value |= (((uint)type) << 24) & 0xFF000000;
-            Value |= id & 0x00FFFFFF;
-        }
         public IdType IdType
         {
             get { return GetIdType(this); }
@@ -67,7 +60,11 @@ namespace Entity
         // ヘルパーメソッド
         static public IdWithType Create(IdType type, uint id)
         {
-            return new IdWithType(type, id);
+            var res = new IdWithType();
+            res.Value = 0;
+            res.Value |= (((uint)type) << 24) & 0xFF000000;
+            res.Value |= id & 0x00FFFFFF;
+            return res;
         }
 
         static Regex regex = new Regex(@"ID_([a-zA-Z]*?)_(\d{3,3})_(\d{3,3})");

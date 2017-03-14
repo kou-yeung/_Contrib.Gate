@@ -8,11 +8,11 @@ namespace Entity
 {
     public class MissionState
     {
-        public class State : Workaround.ENUM
+        public enum State
         {
-            static public readonly State Order = new State { value = 0 };  // 受注中
-            static public readonly State Clear = new State { value = 1 };  // クリア
-            static public readonly State Close = new State { value = 2 };  // クローズ
+            Order,  // 受注中
+            Clear,  // クリア
+            Close,  // クローズ
         }
 
         public IdWithType MissionId { get; set; }

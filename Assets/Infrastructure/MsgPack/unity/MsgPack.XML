@@ -3828,6 +3828,27 @@
               <c>false</c> if none of these conditions are <c>true</c>, or if <paramref name="target"/> is <c>false</c>. 
             </returns>
         </member>
+        <member name="M:MsgPack.Serialization.Reflection.ReflectionExtensions.ToILString(System.Reflection.MethodAttributes)">
+            <summary>
+            	Get IL friendly attributes string.
+            </summary>
+            <param name="source"><see cref="T:System.Reflection.MethodAttributes"/>.</param>
+            <returns>IL friendly attributes string delimited by ASCII whitespace.</returns>
+        </member>
+        <member name="M:MsgPack.Serialization.Reflection.ReflectionExtensions.ToILString(System.Reflection.CallingConventions)">
+            <summary>
+            	Get IL friendly attributes string.
+            </summary>
+            <param name="source"><see cref="T:System.Reflection.CallingConventions"/>.</param>
+            <returns>IL friendly attributes string delimited by ASCII whitespace.</returns>
+        </member>
+        <member name="M:MsgPack.Serialization.Reflection.ReflectionExtensions.ToILString(System.Reflection.MethodImplAttributes)">
+            <summary>
+            	Get IL friendly attributes string.
+            </summary>
+            <param name="source"><see cref="T:System.Reflection.CallingConventions"/>.</param>
+            <returns>IL friendly attributes string delimited by ASCII whitespace.</returns>
+        </member>
         <member name="T:MsgPack.Serialization.ResolveSerializerEventArgs">
             <summary>
             	Represents event information for <see cref="E:MsgPack.Serialization.SerializationContext.ResolveSerializer" /> event.
@@ -4577,6 +4598,15 @@
             <summary>
             	Holds debugging support information.
             </summary>
+        </member>
+        <member name="P:MsgPack.Serialization.SerializerDebugging.AvoidsGenericSerializer">
+            <summary>
+            	Gets or sets a value indicating whether generic serializer for array, <see cref="T:System.Collections.Generic.List`1"/>, <see cref="T:System.Collections.Generic.Dictionary`2"/>, 
+            	or <see cref="T:System.Nullable`1"/> is not used.
+            </summary>
+            <value>
+              <c>true</c> if generic serializer is not used; otherwise, <c>false</c>.
+            </value>
         </member>
         <member name="M:MsgPack.Serialization.SerializerDebugging.TracePolimorphicSchemaEvent(System.String,System.Reflection.MemberInfo,MsgPack.Serialization.PolymorphismSchema)">
             <summary>
@@ -6238,7 +6268,7 @@
             	An interface which is implemented by the objects which know how to unpack themselves using specified <see cref="T:MsgPack.Unpacker" />.
             </summary>
             <remarks>
-            	<!-- No matching elements were found for the following include tag --><include file="remarks.xml" path="doc/remarks[@name=&quot;MsgPack.Serialization.customPackingUnpacking&quot;]" />
+            	<!-- 次のインクルード タグで一致する要素が見つかりませんでした。--><include file="remarks.xml" path="doc/remarks[@name=&quot;MsgPack.Serialization.customPackingUnpacking&quot;]" />
             </remarks>
         </member>
         <member name="M:MsgPack.IUnpackable.UnpackFromMessage(MsgPack.Unpacker)">
