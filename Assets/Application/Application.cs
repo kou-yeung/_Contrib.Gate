@@ -10,89 +10,93 @@ using Entity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Application : MonoBehaviour
+namespace ContribGate
 {
-    enum ConnectionType
-    {
-        Standalone, // スタンドアロン版
-        Local,      // ローカル : 127.0.0.1:2007
-        AWS,        // AWS : 未定
-    }
-    [SerializeField] ConnectionType connectionType;
 
-    void Awake()
+    public class Application : MonoBehaviour
     {
-        DontDestroyOnLoad(gameObject);
-
-        // スタンドアロン版ではスタンドアロンサーバーを追加します
-        if (connectionType == ConnectionType.Standalone)
+        enum ConnectionType
         {
-            gameObject.AddComponent<StandaloneServer>();
+            Standalone, // スタンドアロン版
+            Local,      // ローカル : 127.0.0.1:2007
+            AWS,        // AWS : 未定
         }
-    }
+        [SerializeField]
+        ConnectionType connectionType;
 
-    void Start()
-    {
-        // サービスロケータセットアップ
-        LoggerService.SetLocator(new UnityLogger());
-        InitSocketService();
-        SocketService.Locator.AddReceivedEvent(Receive);
-        FileLoaderServer.SetLocator(new UnityResourceLoader());
-
-        // 初期化
-        GameEnities.CreateInstance().Load();
-
-        // ログイン
+        void Awake()
         {
-            var communication = new Communication(Command.Auth);
-            communication.Pack("ID");
-            communication.Pack("PW");
-            SocketService.Locator.Send(communication.GetBytes());
+            DontDestroyOnLoad(gameObject);
+
+            // スタンドアロン版ではスタンドアロンサーバーを追加します
+            if (connectionType == ConnectionType.Standalone)
+            {
+                gameObject.AddComponent<StandaloneServer>();
+            }
         }
-    }
-    void InitSocketService()
-    {
-        switch (connectionType)
+
+        void Start()
         {
-            case ConnectionType.Standalone:
-                SocketService.SetLocator(new StandaloneSocketService());
-                SocketService.Locator.Connect("Standalone", 0);
-                break;
-            case ConnectionType.Local:
-                SocketService.SetLocator(new TcpClientService());
-                SocketService.Locator.Connect("127.0.0.1", 2007);
-                break;
-            //case ConnectionType.AWS:
-            //    // TODO : 
-            //    //SocketService.SetLocator(new TcpClientService());
-            //    //SocketService.Locator.Connect("127.0.0.1", 2007);
-            //    break;
+            // サービスロケータセットアップ
+            LoggerService.SetLocator(new UnityLogger());
+            InitSocketService();
+            SocketService.Locator.AddReceivedEvent(Receive);
+            FileLoaderServer.SetLocator(new UnityResourceLoader());
+
+            // 初期化
+            GameEnities.CreateInstance().Load();
+
+            // ログイン
+            {
+                var communication = new Communication(Command.Auth);
+                communication.Pack("ID");
+                communication.Pack("PW");
+                SocketService.Locator.Send(communication.GetBytes());
+            }
         }
-    }
-    void Update()
-    {
-        // メインループ
-        SocketService.Locator.Poll();
-    }
-
-    void Receive(byte[] bytes)
-    {
-        var c = Communication.Create(bytes);
-        switch (c.command)
+        void InitSocketService()
         {
-            case Command.Admin:
-                {
-                    var message = c.Unpack<string>();
-                    LoggerService.Locator.Info("Receive : {0}", message);
-                }
-                break;
-            case Command.Auth:
-                {
-                    SceneManager.LoadScene("Ball");
-                }
-                break;
+            switch (connectionType)
+            {
+                case ConnectionType.Standalone:
+                    SocketService.SetLocator(new StandaloneSocketService());
+                    SocketService.Locator.Connect("Standalone", 0);
+                    break;
+                case ConnectionType.Local:
+                    SocketService.SetLocator(new TcpClientService());
+                    SocketService.Locator.Connect("127.0.0.1", 2007);
+                    break;
+                    //case ConnectionType.AWS:
+                    //    // TODO : 
+                    //    //SocketService.SetLocator(new TcpClientService());
+                    //    //SocketService.Locator.Connect("127.0.0.1", 2007);
+                    //    break;
+            }
+        }
+        void Update()
+        {
+            // メインループ
+            SocketService.Locator.Poll();
+        }
 
+        void Receive(byte[] bytes)
+        {
+            var c = Communication.Create(bytes);
+            switch (c.command)
+            {
+                case Command.Admin:
+                    {
+                        var message = c.Unpack<string>();
+                        LoggerService.Locator.Info("Receive : {0}", message);
+                    }
+                    break;
+                case Command.Auth:
+                    {
+                        SceneManager.LoadScene("Ball");
+                    }
+                    break;
+
+            }
         }
     }
 }
-

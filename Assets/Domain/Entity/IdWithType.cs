@@ -15,6 +15,7 @@ namespace Entity
         Mission,    // ミッション
         Ball,       // ボール ※テスト用 : 実際のゲームには使用しない
     }
+
     public struct IdWithType
     {
         public uint Value { get; set; }

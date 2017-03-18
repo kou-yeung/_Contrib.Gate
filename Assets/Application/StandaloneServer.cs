@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StandaloneServer : MonoBehaviour
+namespace ContribGate
 {
-    void Awake()
+    public class StandaloneServer : MonoBehaviour
     {
-        GameState.CreateInstance();
-    }
-    void Start ()
-    {
-	}
-	
-	void Update ()
-    {
-        GameState.Instance.Update();
+        void Awake()
+        {
+            GameState.CreateInstance();
+        }
+        void Start()
+        {
+        }
+
+        void Update()
+        {
+            GameState.Instance.Update();
+        }
     }
 }

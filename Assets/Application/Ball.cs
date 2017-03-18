@@ -2,19 +2,23 @@
 using UnityEngine;
 using Entity;
 
-public class Ball : MonoBehaviour
+namespace ContribGate
 {
-    [SerializeField] string Id;
-    public IdWithType idWithType { get; set; }
-
-    void Awake()
+    public class Ball : MonoBehaviour
     {
-        IdWithType res;
-        IdWithType.TryParse(Id, out res);
-        idWithType = res;
+        [SerializeField]
+        string Id;
+        public IdWithType idWithType { get; set; }
+
+        void Awake()
+        {
+            IdWithType res;
+            IdWithType.TryParse(Id, out res);
+            idWithType = res;
+        }
+
+        void Update()
+        {
+        }
     }
-
-	void Update ()
-    {
-	}
 }

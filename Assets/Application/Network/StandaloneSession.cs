@@ -2,8 +2,9 @@
 using System.IO;
 using System.Collections.Generic;
 using Entity;
+using Network;
 
-namespace Network
+namespace ContribGate
 {
     class StandaloneSession : ISession
     {

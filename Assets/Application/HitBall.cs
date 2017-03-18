@@ -4,26 +4,29 @@ using UnityEngine;
 using Network;
 using Entity;
 
-public class HitBall : MonoBehaviour
+namespace ContribGate
 {
-	void Update ()
+    public class HitBall : MonoBehaviour
     {
-        if (Input.GetMouseButtonDown(0))
+        void Update()
         {
-            // 検証目的です。動作は最適化していません(重いはず)
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            var hits = Physics.RaycastAll(ray);
-            foreach (var hit in hits)
+            if (Input.GetMouseButtonDown(0))
             {
-                var go = hit.collider.gameObject;
-                var ball = hit.collider.gameObject.GetComponent<Ball>();
-                if (ball != null)
+                // 検証目的です。動作は最適化していません(重いはず)
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                var hits = Physics.RaycastAll(ray);
+                foreach (var hit in hits)
                 {
-                    var communication = new Communication(Command.GetBall);
-                    communication.Pack(ball.idWithType);
-                    SocketService.Locator.Send(communication.GetBytes());
+                    var go = hit.collider.gameObject;
+                    var ball = hit.collider.gameObject.GetComponent<Ball>();
+                    if (ball != null)
+                    {
+                        var communication = new Communication(Command.GetBall);
+                        communication.Pack(ball.idWithType);
+                        SocketService.Locator.Send(communication.GetBytes());
+                    }
+                    GameObject.Destroy(go);
                 }
-                GameObject.Destroy(go);
             }
         }
     }

@@ -10,7 +10,7 @@ using Logger;
 using IO;
 using Entity;
 
-namespace Server
+namespace ContribGate
 {
     class Program
     {
@@ -58,7 +58,7 @@ namespace Server
         {
             // サービスロケータ設定
             LoggerService.SetLocator(new ConsoleLogger());
-            FileLoaderServer.SetLocator(new FileLoader(@"D:\GitHub\Contrib.Gate\Resources\Data\csv"));
+            FileLoaderServer.SetLocator(new FileLoader(@"./../../../Resources/Data/csv"));
 
             // 初期化
             GameState.CreateInstance();

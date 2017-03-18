@@ -1,9 +1,8 @@
-﻿
-using System;
-using System.Linq;
+﻿using System;
 using System.IO;
+using Network;
 
-namespace Network
+namespace ContribGate
 {
     class StandaloneSocketService : ISocketService
     {
