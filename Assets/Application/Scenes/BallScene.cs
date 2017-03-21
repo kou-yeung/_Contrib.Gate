@@ -38,7 +38,15 @@ namespace ContribGate
                         {
                             if (state.MissionId == m.ID)
                             {
-                                text.text = string.Format("{0} : ({1}/{2})", m.Title, state.Conditions[0], m.Conditions[0].Value);
+                                string data = m.Title;
+                                for (var i = 0; i < m.Conditions.Length; ++i)
+                                {
+                                    if (m.Conditions[i].ID != IdWithType.Empty)
+                                    {
+                                        data += string.Format("\n({0}/{1})", state.Conditions[i], m.Conditions[i].Value);
+                                    }
+                                }
+                                text.text = data;
                             }
                         }
                     }
