@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MsgPack">
       <HintPath>Infrastructure\MsgPack\net35-client\MsgPack.dll</HintPath>
     </Reference>
@@ -91,96 +95,6 @@
     <Compile Include="..\Assets\Domain\ServiceLocator\ServiceLocator.cs">
       <Link>Domain\ServiceLocator\ServiceLocator.cs</Link>
     </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\ClassMap\AutoClassMap.cs">
-      <Link>Infrastructure\CsvHelper\ClassMap\AutoClassMap.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\ClassMap\ClassMapFactory.cs">
-      <Link>Infrastructure\CsvHelper\ClassMap\ClassMapFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\ClassMap\IClassMap.cs">
-      <Link>Infrastructure\CsvHelper\ClassMap\IClassMap.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\Configuration\CsvConfiguration.cs">
-      <Link>Infrastructure\CsvHelper\Configuration\CsvConfiguration.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\CsvParser.cs">
-      <Link>Infrastructure\CsvHelper\CsvParser.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\CsvReader.cs">
-      <Link>Infrastructure\CsvHelper\CsvReader.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\BooleanTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\BooleanTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\ByteTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\ByteTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\CharTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\CharTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\DateTimeOffsetTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\DateTimeOffsetTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\DateTimeTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\DateTimeTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\DecimalTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\DecimalTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\DefauleTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\DefauleTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\DoubleTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\DoubleTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\EnumTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\EnumTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\GuidTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\GuidTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\Int16TypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\Int16TypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\Int32TypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\Int32TypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\Int64TypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\Int64TypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\IPAddressTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\IPAddressTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\ITypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\ITypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\SByteTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\SByteTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\SingleTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\SingleTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\StringTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\StringTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\TimeSpanTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\TimeSpanTypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\TypeConverterFactory.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\TypeConverterFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\UInt16TypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\UInt16TypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\UInt32TypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\UInt32TypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\UInt64TypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\UInt64TypeConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\Assets\Infrastructure\CsvHelper\TypeConverter\VersionTypeConverter.cs">
-      <Link>Infrastructure\CsvHelper\TypeConverter\VersionTypeConverter.cs</Link>
-    </Compile>
     <Compile Include="Domain\IO\FileLoader.cs" />
     <Compile Include="Domain\Logger\ConsoleLogger.cs" />
     <Compile Include="Program.cs" />
@@ -188,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Workaround\" />

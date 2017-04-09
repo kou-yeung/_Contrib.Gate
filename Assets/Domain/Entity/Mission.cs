@@ -3,7 +3,7 @@
 // 現在は Mission.csv から読み込む
 // TODO : 将来はデータコンバーターを介して MessagePack でシリアライズ (変換時のエラーチェック)
 using System;
-using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace Entity
 {
@@ -35,27 +35,59 @@ namespace Entity
         }
     }
     // 将来は データコンバーターへ
-    public class MissionMap : IClassMap
+    public sealed class MissionMap : CsvClassMap<Mission>
     {
-        public object Parse(CsvReader reader, object obj)
+        public MissionMap()
         {
-            var mission = obj as Mission;
-            mission.ID = reader.GetField<IdWithType>("ID");
-            mission.Accept = reader.GetField<IdWithType>("受注条件");
-            mission.Title = reader.GetField<string>("タイトル");
+            Map(m => m.ID).ConvertUsing(row =>
+            {
+                IdWithType id;
+                if (row.TryGetField("ID", out id)) return id;
+                return IdWithType.Empty;
+            });
+            Map(m => m.Accept).ConvertUsing(row =>
+            {
+                IdWithType id;
+                if (row.TryGetField("受注条件", out id)) return id;
+                return IdWithType.Empty;
+            });
+            Map(m => m.Title).Name("タイトル");
 
-            for (var i = 0; i < mission.Conditions.Length; ++i)
+            Map(m => m.Conditions).ConvertUsing(row =>
             {
-                mission.Conditions[i] = new Condition();
-                mission.Conditions[i].ID = reader.GetField<IdWithType>(string.Format("条件{0}", i + 1));
-                mission.Conditions[i].Value = reader.GetField<int>(string.Format("条件数{0}", i + 1));
-            }
-            for (var i = 0; i < mission.Rewards.Length; ++i)
+                var Conditions = new Condition[3];
+                for (var i = 0; i < Conditions.Length; ++i)
+                {
+                    var index = i + 1;
+                    Conditions[i] = new Condition() { ID = IdWithType.Empty, Value = 0 };
+                    IdWithType id;
+                    if (row.TryGetField(String.Format("条件{0}", index), out id))
+                    {
+                        Conditions[i].ID = id;
+                    }
+                    int value;
+                    if (row.TryGetField(String.Format("条件数{0}", index), out value))
+                    {
+                        Conditions[i].Value = value;
+                    }
+                }
+                return Conditions;
+            });
+
+            Map(m => m.Rewards).ConvertUsing(row =>
             {
-                mission.Rewards[i] = new Reward();
-                mission.Rewards[i].ID = reader.GetField<IdWithType>(string.Format("報酬{0}", i + 1));
-            }
-            return obj;
+                var Rewards = new Reward[1];
+                for (var i = 0; i < Rewards.Length; ++i)
+                {
+                    Rewards[i] = new Reward() { ID = IdWithType.Empty, Value = 0 };
+                    IdWithType id;
+                    if (row.TryGetField(String.Format("報酬{0}", i + 1), out id))
+                    {
+                        Rewards[i].ID = id;
+                    }
+                }
+                return Rewards;
+            });
         }
     }
 }

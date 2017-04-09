@@ -5,7 +5,7 @@
 // 下位 24 bit は ID  : 0x00FFFFFF
 using System;
 using System.Text.RegularExpressions;
-using CsvHelper;
+using CsvHelper.TypeConversion;
 
 namespace Entity
 {
@@ -86,16 +86,13 @@ namespace Entity
         }
     }
 
-    public class IdWithTypeConverter : ITypeConverter
+    public class IdWithTypeConverter : DefaultTypeConverter
     {
-        public object ConvertFromString(string text)
+        public override object ConvertFromString(TypeConverterOptions options, string text)
         {
             IdWithType res;
-            if (!IdWithType.TryParse(text, out res))
-            {
-                throw new Exception(string.Format("{0} は IdWithTypeへ変換できませんでした", text));
-            }
-            return res;
+            if (IdWithType.TryParse(text, out res)) return res;
+            return IdWithType.Empty;
         }
     }
 }

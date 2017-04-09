@@ -1,9 +1,13 @@
 ﻿//=====================================
 // ゲーム用 Entity のロード＆保持するクラス
 using CsvHelper;
+using CsvHelper.Configuration;
+using CsvHelper.TypeConversion;
 using Entity;
 using System.IO;
 using IO;
+using System.Linq;
+
 namespace Entity
 {
 
@@ -23,7 +27,6 @@ namespace Entity
 
         static GameEnities()
         {
-            CreateClassMap();
             CreateConverter();
         }
 
@@ -38,17 +41,14 @@ namespace Entity
             using (var stream = new StringReader(texts))
             {
                 var reader = new CsvReader(stream);
-                return reader.GetRecords<Mission>();
+                reader.Configuration.RegisterClassMap<MissionMap>();
+                return reader.GetRecords<Mission>().ToArray();
             }
         }
-
         static void CreateConverter()
         {
             TypeConverterFactory.AddConverter(typeof(IdWithType), new IdWithTypeConverter());
         }
-        static void CreateClassMap()
-        {
-            ClassMapFactory.AddClassMap(typeof(Mission), new MissionMap());
-        }
+
     }
 }
